@@ -22,6 +22,7 @@ class OrderService
     public function paginateOrders(array $data)
     {
         $orders = $this->orderRepository->getQuery();
+        $this->addEager($orders);
         $this->applyFilter($orders, $data);
 
         return $this->orderRepository->paginate($orders);
@@ -34,5 +35,10 @@ class OrderService
                 'price_from' => $query->where('total_price', '>=', $filterValue),
             };
         }
+    }
+
+    public function addEager($query): void
+    {
+        $query->with('address');
     }
 }

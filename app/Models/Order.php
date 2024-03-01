@@ -15,4 +15,14 @@ class Order extends Model
         'total_price',
         'status',
     ];
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
