@@ -16,30 +16,30 @@ class UserController extends Controller
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        return view("auth.register");
+
+        return view('auth.register');
     }
 
-//    public function register(Request $request)
-//    {
-//        $request->validate([
-//            'name' => 'required',
-//            'email' => 'required|email|unique:users',
-//            'password' => 'required|confirmed'
-//        ]);
-//        $data['name'] = $request->name;
-//        $data['email'] = $request->email;
-//        $data['password'] = Hash::make($request->password);
-//        $user = User::create([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//        ]);
-//        if (!$user) {
-//            return redirect()->route('register.showRegister')->with("error", "register failed");
-//        }
-//        return redirect()->route('login')->with("success", "registration completed");
-//    }
-
+    //    public function register(Request $request)
+    //    {
+    //        $request->validate([
+    //            'name' => 'required',
+    //            'email' => 'required|email|unique:users',
+    //            'password' => 'required|confirmed'
+    //        ]);
+    //        $data['name'] = $request->name;
+    //        $data['email'] = $request->email;
+    //        $data['password'] = Hash::make($request->password);
+    //        $user = User::create([
+    //            'name' => $request->name,
+    //            'email' => $request->email,
+    //            'password' => Hash::make($request->password),
+    //        ]);
+    //        if (!$user) {
+    //            return redirect()->route('register.showRegister')->with("error", "register failed");
+    //        }
+    //        return redirect()->route('login')->with("success", "registration completed");
+    //    }
 
     public function register(RegisterRequest $request)
     {
@@ -50,48 +50,50 @@ class UserController extends Controller
             'password' => $validated['password'],
         ]);
         if ($user) {
-            return redirect()->route('login')->with("success", "Registration completed");
+            return redirect()->route('login')->with('success', 'Registration completed');
         } else {
-            return redirect()->route('register.showRegister')->with("error", "Registration failed");
+            return redirect()->route('register.showRegister')->with('error', 'Registration failed');
         }
 
     }
-
 
     public function showLogin()
     {
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        return view("auth.login");
+
+        return view('auth.login');
     }
 
     public function login(LoginRequest $request)
     {
-//        $create = $request->validate([
-//            'email' => 'required',
-//            'password' => 'required',
-//        ]);
+        //        $create = $request->validate([
+        //            'email' => 'required',
+        //            'password' => 'required',
+        //        ]);
         $create = $request->only('email', 'password');
         if (Auth::attempt($create)) {
             return redirect()->intended(route('home'));
         }
-//        return redirect()->route('login')->with("error", "login details are not valid");
+
+        //        return redirect()->route('login')->with("error", "login details are not valid");
         return redirect()->route('login');
     }
 
     public function logout()
     {
         Auth::logout();
+
         return redirect()->route('login');
     }
-
 
     public function index()
     {
 
-//        $breadcrumbs = [];
+        //        $breadcrumbs = [];
         $breadcrumbs = ['title' => 'home', 'url' => route('index.home')];
-        return view('welcome' , compact('breadcrumbs'));
+
+        return view('welcome', compact('breadcrumbs'));
     }
 }

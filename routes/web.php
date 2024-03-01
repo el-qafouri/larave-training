@@ -25,7 +25,6 @@ Route::get('/', function () {
 //Route::post('/register', [UserController::class, 'register'])->name('register.register');
 //Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
-
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
-require __DIR__."/panel/v1/web.php";
+require __DIR__.'/panel/v1/web.php';

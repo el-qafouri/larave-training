@@ -8,9 +8,6 @@ class AuthController extends Controller
 {
     public function showLoginPage()
     {
-    return view('auth.login');
+        return view('auth.login');
     }
-
-
-
 }

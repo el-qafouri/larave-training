@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Panel\V1\AuthController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => ''], function () {
-    Route::group(['prefix' => 'auth'], function () {
-        Route::get('login', [AuthController::class, 'showLoginPage'])->name('show.login');
-        Route::post('login', [AuthController::class, 'showLoginPage'])->name('login');
+    Route::group(['prefix' => 'orders'], function () {
+        Route::get('', [\App\Http\Controllers\API\V1\OrderController::class, 'index'])->name('orders.index');
     });
+    //    Route::group(['prefix' => 'auth'], function () {
+    //        Route::get('login' , [AuthController::class , 'showLoginPage'])->name('show.login');
+    //        Route::post('login' , [AuthController::class , 'showLoginPage'])->name('login');
+    //    });
 });
-
-//Route::get('/', function () {
-//    return view('welcome');
-//})->name('home');
-
-Route::get('home', [UserController::class, 'index'])->name('index.home');
