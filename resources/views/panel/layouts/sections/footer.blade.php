@@ -1,0 +1,3 @@
+<script>
+    @yield('scripts')
+</script>
