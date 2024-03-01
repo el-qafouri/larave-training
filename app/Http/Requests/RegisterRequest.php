@@ -24,7 +24,7 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'bail|required|min:3|max:99',
             'email' => 'bail|required|email|unique:users',
-            'password' => 'bail|required|min:4|max:99|confirmed'
+            'password' => 'bail|required|min:4|max:99|confirmed',
         ];
     }
 
@@ -36,11 +36,11 @@ class RegisterRequest extends FormRequest
             'name.max' => 'your name should be less than 99',
             'email.required' => 'please enter your email',
             'email.email' => 'email format is not true',
-            'email.unique'=>'your email is exist, please enter unique email',
+            'email.unique' => 'your email is exist, please enter unique email',
             'password.required' => 'please enter your password',
-            'password.min'=>'password should be more than 4',
-            'password.max'=>'password should be less than 99',
-            'password.confirmed'=>'password not confirmed'
+            'password.min' => 'password should be more than 4',
+            'password.max' => 'password should be less than 99',
+            'password.confirmed' => 'password not confirmed',
         ];
     }
 }

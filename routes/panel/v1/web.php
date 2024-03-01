@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Panel\V1\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -18,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'auth'], function () {
-        Route::get('login' , [AuthController::class , 'showLoginPage'])->name('show.login');
-        Route::post('login' , [AuthController::class , 'showLoginPage'])->name('login');
+        Route::get('login', [AuthController::class, 'showLoginPage'])->name('show.login');
+        Route::post('login', [AuthController::class, 'showLoginPage'])->name('login');
     });
 });
 
@@ -27,4 +26,4 @@ Route::group(['prefix' => ''], function () {
 //    return view('welcome');
 //})->name('home');
 
-Route::get('home' , [UserController::class , 'index'])->name('index.home');
+Route::get('home', [UserController::class, 'index'])->name('index.home');
