@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Panel\V1\AuthController;
+use App\Http\Controllers\API\V1\AuthController;
+use App\Http\Controllers\API\V1\OrderController;
+use App\Http\Controllers\API\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,10 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'orders'], function () {
-        Route::get('', [\App\Http\Controllers\API\V1\OrderController::class, 'index'])->name('orders.index');
+        Route::get('', [OrderController::class, 'index'])->name('orders.index');
     });
-    //    Route::group(['prefix' => 'auth'], function () {
-    //        Route::get('login' , [AuthController::class , 'showLoginPage'])->name('show.login');
-    //        Route::post('login' , [AuthController::class , 'showLoginPage'])->name('login');
-    //    });
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('login', [AuthController::class, 'login'])->name('login');
+        Route::post('verify', [AuthController::class, 'verify'])->name('verify');
+    });
+
+    Route::group(['prefix' => 'users', 'middleware' => 'auth:sanctum'], function () {
+        Route::get('information', [UserController::class, 'showInformation'])->name('users.information');
+    });
 });
