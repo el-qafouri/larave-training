@@ -17,4 +17,14 @@ class VerificationCodeService
 
         return $token;
     }
+
+    public function isValid(string $key): ?string
+    {
+        return Cache::get($key);
+    }
+
+    public function clearCode(string $key): ?string
+    {
+        return Cache::forget($key);
+    }
 }

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\UserLoggedIn;
+use App\Events\UserVerified;
 use App\Listeners\NotifyUserByToken;
+use App\Listeners\UpdateUserVerification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserLoggedIn::class => [
             NotifyUserByToken::class,
+        ],
+        UserVerified::class => [
+            UpdateUserVerification::class,
         ],
     ];
 

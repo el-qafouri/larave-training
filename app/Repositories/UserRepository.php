@@ -52,4 +52,11 @@ class UserRepository implements CRUDInterface
                 'mobile' => $data['mobile'],
             ]);
     }
+
+    public function setVerificationTime($time)
+    {
+        $this->user->update([
+            'email_verified_at' => $time,
+        ]);
+    }
 }
