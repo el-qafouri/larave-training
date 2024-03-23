@@ -16,7 +16,7 @@ trait ApiResponse
         ]);
     }
 
-    public function generateErrorResponse($data, string $message = '', int $code = Response::HTTP_BAD_REQUEST)
+    public function generateErrorResponse($data = null, string $message = '', int $code = Response::HTTP_BAD_REQUEST)
     {
 
         return response()->json([
