@@ -12,8 +12,13 @@ class VerificationCodeService
             return Cache::get($key);
         }
 
-        $token = rand(1000, 9999);
-        Cache::put($key, $token, 90);
+        if (app()->environment('local', 'development', 'testing')) {
+            $token = 1111;
+        } else {
+            $token = rand(1000, 9999);
+        }
+
+        Cache::put($key, $token, config('services.auth.verification_token_ttl'));
 
         return $token;
     }
