@@ -91,4 +91,16 @@ class AddressRepository implements CRUDInterface
                 'receiver_name' => $this->data['receiver_name'],
             ]);
     }
+
+    public function updateAddress(int $addressId): bool
+    {
+        return $this->getQuery()
+            ->whereId($addressId)
+            ->update([
+                'name' => $this->data['name'],
+                'address' => $this->data['address'],
+                'receiver_name' => $this->data['receiver_name'],
+            ]);
+
+    }
 }

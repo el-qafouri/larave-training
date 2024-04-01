@@ -25,7 +25,7 @@ class AddressService
             ->paginateUserAddresses($user);
     }
 
-    public function storeAddresses(array $data, ?User $user)
+    public function storeAddress(array $data, ?User $user)
     {
         if (! empty($user)) {
             $data['user_id'] = $user->id;
@@ -34,5 +34,18 @@ class AddressService
         return $this->addressRepository
             ->setData($data)
             ->saveAddress();
+    }
+
+    public function getAddress(int $addressId)
+    {
+        return $this->addressRepository
+            ->findByValue('id', $addressId);
+    }
+
+    public function updateAddress(array $data, int $address)
+    {
+        return $this->addressRepository
+            ->setData($data)
+            ->updateAddress($address);
     }
 }

@@ -18,7 +18,7 @@ class AddressResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
-            'receiver_name' => $this->receiver_name,
+            'receiverName' => $this->receiver_name,
             'createdAt' => $this->created_at,
         ];
     }
