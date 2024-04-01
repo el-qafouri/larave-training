@@ -42,10 +42,16 @@ class AddressService
             ->findByValue('id', $addressId);
     }
 
-    public function updateAddress(array $data, int $address)
+    public function updateAddress(array $data, int $addressId)
     {
         return $this->addressRepository
             ->setData($data)
-            ->updateAddress($address);
+            ->updateAddress($addressId);
+    }
+
+    public function deleteAddress(int $addressId)
+    {
+        return $this->addressRepository
+            ->deleteAddress($addressId);
     }
 }

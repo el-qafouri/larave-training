@@ -103,4 +103,12 @@ class AddressRepository implements CRUDInterface
             ]);
 
     }
+
+    public function deleteAddress(int $addressId): bool
+    {
+        return $this->getQuery()
+            ->whereId($addressId)
+            ->delete();
+
+    }
 }

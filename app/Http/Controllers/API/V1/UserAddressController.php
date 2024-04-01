@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\API\V1\UserAddress\DeleteRequest;
 use App\Http\Requests\API\V1\UserAddress\StoreRequest;
 use App\Http\Requests\API\V1\UserAddress\UpdateRequest;
 use App\Http\Resources\V1\AddressResource;
@@ -44,5 +45,12 @@ class UserAddressController extends Controller
         $this->addressService->updateAddress($request->validated(), $address);
 
         return $this->generateResponse();
+    }
+
+    public function delete($address, DeleteRequest $request)
+    {
+        $this->addressService->deleteAddress($address);
+
+        return $this->generateResponse(code: Response::HTTP_NO_CONTENT);
     }
 }

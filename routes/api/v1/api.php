@@ -21,6 +21,7 @@ Route::group(['prefix' => ''], function () {
                 Route::post('', [V1\UserAddressController::class, 'store']);
                 Route::get('/{address}', [V1\UserAddressController::class, 'show']);
                 Route::put('/{address}', [V1\UserAddressController::class, 'update']);
+                Route::delete('/{address}', [V1\UserAddressController::class, 'delete'])->where('user', '[0-9]+');
             });
         });
         Route::group(['prefix' => 'addresses'], function () {
