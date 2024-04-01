@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\CRUDInterface;
 
 class AddressRepository implements CRUDInterface
 {
-    public function __construct(protected $address = null)
+    public function __construct(protected $address = null, protected array $data = [])
     {
 
     }
@@ -18,9 +18,16 @@ class AddressRepository implements CRUDInterface
         return new Address();
     }
 
-    public function setModel($user): self
+    public function setModel($address): self
     {
-        $this->user = $user;
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function setData(array $data): self
+    {
+        $this->data = $data;
 
         return $this;
     }
@@ -72,5 +79,16 @@ class AddressRepository implements CRUDInterface
         $this->user->update([
             'email_verified_at' => $time,
         ]);
+    }
+
+    public function saveAddress(): Address
+    {
+        return $this->getQuery()
+            ->create([
+                'user_id' => $this->data['user_id'],
+                'name' => $this->data['name'],
+                'address' => $this->data['address'],
+                'receiver_name' => $this->data['receiver_name'],
+            ]);
     }
 }

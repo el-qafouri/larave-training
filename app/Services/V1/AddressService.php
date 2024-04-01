@@ -15,11 +15,24 @@ class AddressService
 
     public function getAddresses()
     {
-        return $this->addressRepository->paginateAddresses();
+        return $this->addressRepository
+            ->paginateAddresses();
     }
 
     public function getUserAddresses(User $user)
     {
-        return $this->addressRepository->paginateUserAddresses($user);
+        return $this->addressRepository
+            ->paginateUserAddresses($user);
+    }
+
+    public function storeAddresses(array $data, ?User $user)
+    {
+        if (! empty($user)) {
+            $data['user_id'] = $user->id;
+        }
+
+        return $this->addressRepository
+            ->setData($data)
+            ->saveAddress();
     }
 }

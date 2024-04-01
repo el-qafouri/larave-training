@@ -18,6 +18,7 @@ Route::group(['prefix' => ''], function () {
 
             Route::group(['prefix' => 'addresses'], function () {
                 Route::get('', [V1\UserAddressController::class, 'index']);
+                Route::post('', [V1\UserAddressController::class, 'store']);
             });
         });
         Route::group(['prefix' => 'addresses'], function () {
