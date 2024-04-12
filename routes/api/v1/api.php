@@ -1,31 +1,32 @@
 <?php
 
-use App\Http\Controllers\API\V1\AuthController;
-use App\Http\Controllers\API\V1\OrderController;
-use App\Http\Controllers\API\V1\UserController;
+use App\Http\Controllers\API\V1;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'orders'], function () {
-        Route::get('', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('', [V1\OrderController::class, 'index'])->name('orders.index');
     });
     Route::group(['prefix' => 'auth'], function () {
-        Route::post('login', [AuthController::class, 'login'])->name('login');
-        Route::post('verify', [AuthController::class, 'verify'])->name('verify');
+        Route::post('login', [V1\AuthController::class, 'login'])->name('login');
+        Route::post('verify', [V1\AuthController::class, 'verify'])->name('verify');
     });
 
-    Route::group(['prefix' => 'users', 'middleware' => 'auth:sanctum'], function () {
-        Route::get('information', [UserController::class, 'showInformation'])->name('users.information');
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('information', [V1\UserController::class, 'showInformation'])->name('users.information');
+
+            Route::group(['prefix' => 'addresses'], function () {
+                Route::get('', [V1\UserAddressController::class, 'index']);
+                Route::post('', [V1\UserAddressController::class, 'store']);
+                Route::get('/{address}', [V1\UserAddressController::class, 'show']);
+                Route::put('/{address}', [V1\UserAddressController::class, 'update']);
+                Route::delete('/{address}', [V1\UserAddressController::class, 'delete'])->where('user', '[0-9]+');
+            });
+        });
+        Route::group(['prefix' => 'addresses'], function () {
+            Route::get('', [V1\AddressController::class, 'index']);
+        });
     });
+
 });
