@@ -12,7 +12,7 @@ class AddressFactory extends Factory
         return [
             'user_id' => User::factory(),
             'name' => fake()->name,
-            'address' => fake()->unique()->safeEmail,
+            'address' => fake()->sentence(),
             'receiver_name' => fake()->lastName(),
         ];
     }
