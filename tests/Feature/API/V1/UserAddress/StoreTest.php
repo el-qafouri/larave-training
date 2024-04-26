@@ -42,5 +42,53 @@ class StoreTest extends TestCase
         ]);
     }
 
+    public function test_that_required_validation_validated_correctly()
+    {
+        $user = User::factory()->create();
+        $address = [
+            'name' => fake()->name,
+            'address' => [],
+            'receiver_name' => fake()->lastName(),
+        ];
+        $this->actingAs($user)
+            ->postJson($this->url, $address)
+            ->assertUnprocessable();
+    }
+
+    public function test_that_string_validation_validated_correctly()
+    {
+        $user = User::factory()->create();
+        $address = [
+            'name' => fake()->name,
+            'address' => 1,
+            'receiver_name' => fake()->lastName(),
+        ];
+        $this->actingAs($user)
+            ->postJson($this->url, $address)
+            ->assertUnprocessable();
+    }
+
+    public function test_that_validation_worked_correctly()
+    {
+        $user = User::factory()->create();
+        $address = [
+            'name' => fake()->name,
+            'address' => fake()->sentence(),
+            'receiver_name' => fake()->lastName(),
+        ];
+        $data = [
+            'message',
+            'data' => [
+//                ['name' => $address->name,],
+//                ['address' => $address->sentence,],
+//                ['receiver_name' => $address->last_name]
+            ],
+        ];
+        $this->actingAs($user)
+            ->postJson($this->url, $address)
+            ->assertCreated()
+            ->assertJsonStructure($data);
+    }
+
 
 }

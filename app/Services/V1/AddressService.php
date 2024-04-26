@@ -39,7 +39,7 @@ class AddressService
     public function getAddress(int $addressId)
     {
         return $this->addressRepository
-            ->findByValue('id', $addressId);
+            ->findOrFailByValue('id', $addressId);
     }
 
     public function updateAddress(array $data, int $addressId)

@@ -66,6 +66,14 @@ class AddressRepository implements CRUDInterface
             ->firstWhere($column, $value);
     }
 
+    public function findOrFailByValue(string $column, string $value)
+    {
+        return $this->getQuery()
+            ->where($column, $value)
+            ->firstOrFail();
+    }
+
+
     public function createUser(array $data): User
     {
         return $this->getQuery()
